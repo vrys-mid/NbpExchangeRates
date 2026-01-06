@@ -76,22 +76,22 @@ The app should be accessible under port 5173 (http://localhost:5173/)
 
 ## Images
 
-![MainTable][./Images/mainTable.png?raw=true]
+![MainTable][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/mainTable.png?raw=true]
 
 *Figure 1: Main Table 
 
-![chart][./Images/chart.png]
+![chart][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/chart.png?raw=true]
 
 *Figure 2: Comparison chart
 
-![chartDetail][./Images/chart.png]
+![chartDetail][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/chartDetails.png?raw=true]
 
 *Figure 3: Chart details
 
-![currencyConverter][./Images/currencyConverter.png]
+![currencyConverter][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/currencyConverter.png?raw=true]
 
 *Figure 4: Currency converter
 
-![favorites][./Images/favorites.png]
+![favorites][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/favorites.png?raw=true]
 
 *Figure 5: Favorites filter on main table
