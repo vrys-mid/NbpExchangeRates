@@ -38,14 +38,14 @@ public class ImportTableBJob
                 _db.CurrencyRates.RemoveRange(existingRates);
             }
 
-            var entities = table.Rates.Select(r => new CurrencyRate
-            {
-                Table = "B",
-                Currency = r.Currency,
-                Code = r.Code,
-                Mid = r.Mid,
-                EffectiveDate = effectiveDate
-            });
+            var entities = table.Rates.Select(r => 
+                new CurrencyRate(
+                    r.Code,
+                    r.Currency,
+                    r.Mid,
+                    effectiveDate
+                )
+            );
 
             _db.CurrencyRates.AddRange(entities);
             await _db.SaveChangesAsync();
@@ -54,6 +54,7 @@ public class ImportTableBJob
         catch (Exception ex)
         {
             _logger.LogError(ex, "Error while importing table job");
+            throw ex;
         }
     }
 }

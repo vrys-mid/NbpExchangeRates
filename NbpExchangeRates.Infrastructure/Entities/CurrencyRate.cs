@@ -15,4 +15,13 @@ public class CurrencyRate
     
     public DateTime EffectiveDate { get; set; }
     public string Table { get; set; } = "B";
+    
+    public CurrencyRate(string code, string currency, decimal mid, DateTime effectiveDate, string table = "B")
+    {
+        Code = code;
+        Currency = currency;
+        Mid = mid;
+        EffectiveDate = effectiveDate;
+        Table = table;
+    }
 }
