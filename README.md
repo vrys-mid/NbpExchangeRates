@@ -6,17 +6,17 @@ A simple project to display NBP Table B Rates
 
 ## Features
 
--Displaying current currency conversions in PLN on the main table 
--Search functionality by code or currency name
--Showing historical snapshot of table B, which already has been serialized
--Sorting by Currency Code, currency name and Rate
--Showing flags corresponding to the currency
--Possibility to add multiple currenies to favorites, which is persistant (localStorage)
--Possibility to filter by favorite currencies
--Possibility to display chart of currency rate over custom time period
--Possibility to plot 2 currencies on one chart for comparison 
--Trend column showing, if in last time period the currency rate was increasing or decreasing
--Currency converter, which can convert from one currency from table B to other
+- Displaying current currency conversions in PLN on the main table 
+- Search functionality by code or currency name
+- Showing historical snapshot of table B, which already has been serialized
+- Sorting by Currency Code, currency name and Rate
+- Showing flags corresponding to the currency
+- Possibility to add multiple currenies to favorites, which is persistant (localStorage)
+- Possibility to filter by favorite currencies
+- Possibility to display chart of currency rate over custom time period
+- Possibility to plot 2 currencies on one chart for comparison 
+- Trend column showing, if in last time period the currency rate was increasing or decreasing
+- Currency converter, which can convert from one currency from table B to other
 
 --
 
