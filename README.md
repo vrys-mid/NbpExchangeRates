@@ -76,7 +76,7 @@ The app should be accessible under port 5173 (http://localhost:5173/)
 
 ## Images
 
-![MainTable][./Images/mainTable.png]
+![MainTable][./Images/mainTable.png?raw=true]
 
 *Figure 1: Main Table 
 
