@@ -2,7 +2,6 @@
 
 A simple project to display NBP Table B Rates
 
---
 
 ## Features
 
@@ -18,7 +17,6 @@ A simple project to display NBP Table B Rates
 - Trend column showing, if in last time period the currency rate was increasing or decreasing
 - Currency converter, which can convert from one currency from table B to other
 
---
 
 ## Project structure
 
@@ -39,7 +37,6 @@ operation as well as manually triggering it. If the job fails there are multiple
 - **Technologies:** XUnit, Moq
 - **Description:** Unit tests 
 
---
 
 ## First run
 
@@ -53,8 +50,8 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=xxx" \
   -p 1433:1433 --name sqlserver -d mcr.microsoft.com/mssql/server:2022-latest
 ```
 
-next, populate connectionstring to point to new  sql server instance in projects NbpExchangeRates.ImporterCron appsettings.json, and NbpExchangeRates.WebApi appsetting.json. Move those secrets to new file appsettings.Development.json
-in NbpExchangeRates.Infrastructure project please run (and replace xxx with actual password of your sql server instance)
+next, populate connectionstring to point to new  sql server instance in projects NbpExchangeRates.ImporterCron appsettings.json, and NbpExchangeRates.WebApi appsetting.json.  
+ Move those secrets to new file appsettings.Development.json in NbpExchangeRates.Infrastructure project please run (and replace xxx with actual password of your sql server instance)
 ```bash
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=NbpRates;User Id=sa;Password=xxx;TrustServerCertificate=True" --project NbpExchangeRates.Infrastructure
 ```
@@ -69,9 +66,23 @@ Run ImporterCron and WebAPI projects (in different terminals or a background thr
 ```bash
 dotnet run #in NbpExchangeRates.ImporterCron and NbpExchangeRates.WebApi
 ```
+Go to hangfire dashboard (usually http://localhost:5022/hangfire/) and retrigger import-table-b job in Recurring Jobs tab  
 Finally please go to NbpExchangeRates.UI
 ```bash
 npm install
 npm run dev
 ```
 The app should be accessible under port 5173 (http://localhost:5173/)
+
+## Images
+
+![MainTable][./images/mainTable.png]
+*Figure 1: Main Table 
+![chart][./images/chart.png]
+*Figure 2: Comparison chart
+![chartDetail][./images/chart.png]
+*Figure 3: Chart details
+![currencyConverter][./images/currencyConverter.png]
+*Figure 4: Currency converter
+![favorites][./images/favorites.png]
+*Figure 5: Favorites filter on main table
