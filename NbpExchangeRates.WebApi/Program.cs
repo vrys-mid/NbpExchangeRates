@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using NbpExchangeRates.Infrastructure.Data;
+using NbpExchangeRatesApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.AddDbContext<AppDbContext>(options =>
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IRatesService, RatesService>();
+builder.Services.AddMemoryCache();
 
 builder.Services.AddCors(options =>
 {

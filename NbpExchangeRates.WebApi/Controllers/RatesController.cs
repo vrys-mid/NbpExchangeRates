@@ -1,7 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using NbpExchangeRates.Infrastructure.Data;
-using NbpExchangeRatesApi.Contracts;
+using NbpExchangeRatesApi.Services;
 
 namespace NbpExchangeRatesApi.Controllers;
 
@@ -9,78 +7,33 @@ namespace NbpExchangeRatesApi.Controllers;
 [Route("api/rates")]
 public class RatesController : ControllerBase
 {
-    private readonly AppDbContext _db;
+    private readonly IRatesService _ratesService;
 
-    public RatesController(AppDbContext db)
+    public RatesController(IRatesService ratesService)
     {
-        _db = db;
+        _ratesService = ratesService;
     }
 
-    // GET /api/rates/latest
-    [HttpGet("latest")]
-    public async Task<ActionResult<IEnumerable<CurrencyRateDto>>> GetLatest()
-    {
-        var latestDate = await _db.CurrencyRates
-            .MaxAsync(x => x.EffectiveDate);
-
-        var rates = await _db.CurrencyRates
-            .Where(x => x.EffectiveDate == latestDate)
-            .OrderBy(x => x.Code)
-            .Select(x => new CurrencyRateDto(
-                x.Code,
-                x.Currency,
-                x.Mid,
-                x.EffectiveDate))
-            .ToListAsync();
-
-        return Ok(rates);
-    }
     
     [HttpGet("{code}/history")]
     public async Task<IActionResult> GetHistory(string code)
     {
-        var data = await _db.CurrencyRates
-            .Where(r => r.Code == code)
-            .OrderBy(r => r.EffectiveDate)
-            .Select(r => new CurrencyRateHistoryDto(
-                r.EffectiveDate,
-                r.Mid
-            ))
-            .ToListAsync();
-
+        var data = await _ratesService.GetCurrencyHistoryAsync(code);
         return Ok(data);
     }
 
     [HttpGet("publication-dates")]
     public async Task<IActionResult> GetPublicationDates()
     {
-        var dates = await _db.CurrencyRates
-            .Select(r => r.EffectiveDate)
-            .Distinct()
-            .OrderByDescending(x => x)
-            .ToListAsync();
+        var dates = await _ratesService.GetPublicationDatesAsync();
         return Ok(dates);
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetRates([FromQuery] DateTime? date)
+    public async Task<IActionResult> GetRates(DateTime? date)
     {
-        var query = _db.CurrencyRates.AsQueryable();
-
-        if (date.HasValue)
-        {
-            query = query.Where(r => r.EffectiveDate == date.Value);
-        }
-        else
-        {
-            var maxDate = await _db.CurrencyRates.MaxAsync(r => r.EffectiveDate);
-            query = query.Where(r => r.EffectiveDate == maxDate);
-        }
+        var rates = await _ratesService.GetRatesByDateAsync(date);
         
-        var result = await query
-            .OrderBy(r => r.Code)
-            .ToListAsync();
-        
-        return Ok(result);
+        return Ok(rates);
     }
 }
