@@ -50,4 +50,32 @@ public class RatesController : ControllerBase
 
         return Ok(data);
     }
+
+    [HttpGet("publication-dates")]
+    public async Task<IActionResult> GetPublicationDates()
+    {
+        var dates = await _db.CurrencyRates
+            .Select(r => r.EffectiveDate)
+            .Distinct()
+            .OrderByDescending(x => x)
+            .ToListAsync();
+        return Ok(dates);
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetRates([FromQuery] DateTime? date)
+    {
+        var query = _db.CurrencyRates.AsQueryable();
+
+        if (date.HasValue)
+        {
+            query = query.Where(r => r.EffectiveDate == date.Value);
+        }
+        
+        var result = await query
+            .OrderBy(r => r.Code)
+            .ToListAsync();
+        
+        return Ok(result);
+    }
 }

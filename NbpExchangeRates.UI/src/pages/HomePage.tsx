@@ -1,7 +1,9 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchLatestRates } from "../api/ratesApi";
+import { fetchLatestRates, fetchRatesByDate, fetchPublicationDates } from "../api/ratesApi";
 import { RatesTable } from "../components/RatesTable";
+import type { CurrencyRate } from "../types/CurrencyRate";
+import { useFavorites } from "../hooks/useFavorites";
 
 type SortField = "code" | "currency" | "mid";
 type SortDirection = "asc" | "desc";
@@ -9,26 +11,35 @@ type SortDirection = "asc" | "desc";
 
 export const HomePage = () => {
   const [query, setQuery] = useState("");
+  const [selectedDate, setSelectedDate] = useState<string | undefined>();
+  const {favorites, isFavorite, toggleFavorite } = useFavorites();
 
 const [sortField, setSortField] = useState<SortField>("code");
 const [sortDirection, setSortDirection] = useState<SortDirection>("asc");
 
 
 
+const { data: rates, isLoading, error } = useQuery<CurrencyRate[]>({
+  queryKey: ["rates", selectedDate],
+  queryFn: () => fetchRatesByDate(selectedDate),
+});
 
-  const { data, isLoading, error } = useQuery({
-    queryKey: ["rates", "latest"],
-    queryFn: fetchLatestRates,
-  });
+  const { data: publicationDates } = useQuery({
+  queryKey: ["publicationDates"],
+  queryFn: fetchPublicationDates,
+});
+const [showFavoritesOnly, setShowFavoritesOnly] = useState(false);
 
   if (isLoading) return <p>Loading...</p>;
   if (error) return <p>Error loading data</p>;
 
-  const filteredRates = data!.filter((r) =>
-    `${r.code} ${r.currency}`
-      .toLowerCase()
-      .includes(query.toLowerCase())
-  );
+const filteredRates = rates
+  ?.filter(r =>
+    `${r.code} ${r.currency}`.toLowerCase().includes(query.toLowerCase())
+  )
+  .filter(r =>
+    !showFavoritesOnly || favorites.includes(r.code)
+  ) ?? [];
 const sortedRates = [...filteredRates].sort((a, b) => {
   const dir = sortDirection === "asc" ? 1 : -1;
 
@@ -48,29 +59,56 @@ const sortedRates = [...filteredRates].sort((a, b) => {
 });
 
 
-  return (
-    <>
+
+return (
+  <>
+    <div className="mb-4 flex flex-col gap-4 sm:flex-row">
+      <label className="flex items-center gap-2">
+  <input
+    type="checkbox"
+    checked={showFavoritesOnly}
+    onChange={(e) => setShowFavoritesOnly(e.target.checked)}
+  />
+  Favorites only
+</label>
       <input
         type="text"
         placeholder="Search currency (code or name)..."
         value={query}
         onChange={(e) => setQuery(e.target.value)}
-        className="mb-4 w-full rounded border px-4 py-2"
+        className="flex-1 rounded border px-4 py-2"
       />
 
-  <RatesTable
-    rates={sortedRates}
-    onSort={(field) => {
-    if (field === sortField) {
-      setSortDirection(sortDirection === "asc" ? "desc" : "asc");
-    } else {
-      setSortField(field);
-      setSortDirection("asc");
-    }
-  }}
-  sortField={sortField}
-  sortDirection={sortDirection}
-/>
-    </>
-  );
-};
+      <select
+        value={selectedDate ?? ""}
+        onChange={(e) =>
+          setSelectedDate(e.target.value || undefined)
+        }
+        className="rounded border px-4 py-2"
+      >
+        <option value="">Latest</option>
+        {publicationDates?.map((date) => (
+          <option key={date} value={date}>
+            {new Date(date).toLocaleDateString("pl-PL")}
+          </option>
+        ))}
+      </select>
+    </div>
+
+    <RatesTable
+      rates={sortedRates}
+      onSort={(field) => {
+        if (field === sortField) {
+          setSortDirection(sortDirection === "asc" ? "desc" : "asc");
+        } else {
+          setSortField(field);
+          setSortDirection("asc");
+        }
+      }}
+      sortField={sortField}
+      sortDirection={sortDirection}
+      isFavorite={isFavorite}
+      toggleFavorite={toggleFavorite}
+    />
+  </>
+)};

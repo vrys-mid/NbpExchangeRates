@@ -3,14 +3,17 @@ import { formatDate } from "../utils/date";
 import { useNavigate } from "react-router-dom";
 import * as emojiFlags from "country-currency-emoji-flags";
 
+
 interface Props {
   rates: CurrencyRate[];
   onSort: (field: "code" | "currency" | "mid") => void;
   sortField: string;
   sortDirection: string;
+  isFavorite: (code: string) => boolean;
+  toggleFavorite: (code: string) => void;
 }
 
-export const RatesTable = ({ rates, onSort, sortField, sortDirection }: Props) => {
+export const RatesTable = ({ rates, onSort, sortField, sortDirection, isFavorite, toggleFavorite }: Props) => {
   const sortIcon = (field: "code" | "currency" | "mid") => {
     if (sortField !== field) return null;
     return sortDirection === "asc" ? " ▲" : " ▼";
@@ -63,19 +66,31 @@ export const RatesTable = ({ rates, onSort, sortField, sortDirection }: Props) =
               </td>
               <td className="px-6 py-4">{r.currency}</td>
               <td className="px-6 py-4 text-right font-mono">
-                {r.mid.toFixed(4)}
+                {r.mid.toFixed(4)} PLN
               </td>
               <td className="px-6 py-4 text-gray-600">
                 {formatDate(r.effectiveDate)}
               </td>
-              <td className="px-6 py-4 text-center">
-                <button
-                  onClick={() => navigate(`/currency/${r.code}`)}
-                  className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-                >
-                  History
-                </button>
-              </td>
+           <td className="px-6 py-4 text-center space-x-2">
+ <button
+  onClick={() => toggleFavorite(r.code)}
+  className={`text-2xl transition-transform duration-200 ${
+    isFavorite(r.code)
+      ? "text-yellow-400 scale-110"  
+      : "text-gray-300 hover:text-yellow-400 hover:scale-110" 
+  }`}
+  title={isFavorite(r.code) ? "Remove from favorites" : "Add to favorites"}
+>
+  {isFavorite(r.code) ? "★" : "☆"}
+</button>
+
+  <button
+    onClick={() => navigate(`/currency/${r.code}`)}
+    className="px-3 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
+  >
+    Chart
+  </button>
+</td>
             </tr>
           ))}
         </tbody>
