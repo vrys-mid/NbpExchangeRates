@@ -10,7 +10,7 @@ A simple project to display NBP Table B Rates
 - Showing historical snapshot of table B, which already has been serialized
 - Sorting by Currency Code, currency name and Rate
 - Showing flags corresponding to the currency
-- Possibility to add multiple currenies to favorites, which is persistant (localStorage)
+- Possibility to add multiple currencies to favorites, which is persistant (localStorage)
 - Possibility to filter by favorite currencies
 - Possibility to display chart of currency rate over custom time period
 - Possibility to plot 2 currencies on one chart for comparison 
@@ -61,8 +61,8 @@ dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,
 After that is done, please go to root folder of the project (where .sln file is located) and run
 ```bash
 dotnet ef database update \
-  --project Nbp.Rates.Infrastructure \
-  --startup-project Nbp.Rates.Api
+  --project NbpExchangeRates.Infrastructure \
+  --startup-project NbpExchangeRates.WebApi
 ```
 Run ImporterCron and WebAPI projects (in different terminals or a background thread), go to the project locations and run
 ```bash
