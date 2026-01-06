@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
-import { fetchLatestRates } from "../api/ratesApi";
+import { fetchRatesByDate } from "../api/ratesApi";
 import * as emojiFlags from "country-currency-emoji-flags";
 
 export const CurrencyConverterPage = () => {
@@ -9,8 +9,7 @@ export const CurrencyConverterPage = () => {
   const [amount, setAmount] = useState("1");
 
   const { data: rates, isLoading } = useQuery({
-    queryKey: ["rates", "latest"],
-    queryFn: fetchLatestRates,
+      queryKey: ["rates", null], queryFn: () => fetchRatesByDate(null),
   });
 
   if (isLoading) return <p>Loading currencies...</p>;
@@ -89,6 +88,7 @@ export const CurrencyConverterPage = () => {
             </select>
           </div>
 
+          {/* Result */}
           {result && (
             <div className="mt-6 p-6 bg-blue-50 rounded">
               <div className="text-center">
