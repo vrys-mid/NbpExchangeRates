@@ -76,22 +76,22 @@ The app should be accessible under port 5173 (http://localhost:5173/)
 
 ## Images
 
-![MainTable][Images/mainTable.png]
+<img width="1889" height="557" alt="mainTable" src="https://github.com/user-attachments/assets/6d95f375-e383-4f0d-9a02-3396bfc6ef1e" />
 
 *Figure 1: Main Table 
 
-![chart][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/chart.png?raw=true]
+<img width="1899" height="854" alt="chart" src="https://github.com/user-attachments/assets/11e49550-9816-4f29-8ad4-7bf44c7d68fa" />
 
 *Figure 2: Comparison chart
 
-![chartDetail][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/chartDetails.png?raw=true]
+<img width="611" height="468" alt="chartDetail" src="https://github.com/user-attachments/assets/b4a197a7-bfd6-42d4-af8c-4ec2e0c7751a" />
 
 *Figure 3: Chart details
 
-![currencyConverter][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/currencyConverter.png?raw=true]
+<img width="1137" height="454" alt="currencyConverter" src="https://github.com/user-attachments/assets/e85024bc-09b1-4436-a07f-3703aa518a4c" />
 
 *Figure 4: Currency converter
 
-![favorites][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/favorites.png?raw=true]
+<img width="1894" height="466" alt="favorites" src="https://github.com/user-attachments/assets/d08633f8-6e6d-45d1-a3d4-d44e619a12b8" />
 
 *Figure 5: Favorites filter on main table
