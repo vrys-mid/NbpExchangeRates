@@ -27,7 +27,7 @@ export const RatesTable = ({ rates, onSort, sortField, sortDirection, isFavorite
   
   return (
     <div className="overflow-x-auto">
-      <table className="min-w-full text-sm border-collapse">
+      <table className="min-w-full text-sm">
         <thead className="text-gray-600 uppercase text-xs">
           <tr>
             <th className="px-6 py-3 text-left">Flag</th>
@@ -45,7 +45,7 @@ export const RatesTable = ({ rates, onSort, sortField, sortDirection, isFavorite
             </th>
             <th
               onClick={() => onSort("mid")}
-              className="cursor-pointer px-6 py-3 text-right"
+              className="cursor-pointer px-6 py-3 text-left"
             >
               Rate{sortIcon("mid")}
             </th>
@@ -55,8 +55,9 @@ export const RatesTable = ({ rates, onSort, sortField, sortDirection, isFavorite
         </thead>
         <tbody>
           {rates.map((r, index) => (
-            <tr
+             <tr
               key={`${r.code}-${r.effectiveDate}`}
+              className={index % 2 === 0 ? "bg-white" : "bg-gray-100"}
             >
               <td className="px-6 py-4 text-2xl">
                 {getFlag(r.code)}
@@ -65,7 +66,7 @@ export const RatesTable = ({ rates, onSort, sortField, sortDirection, isFavorite
                 {r.code}
               </td>
               <td className="px-6 py-4">{r.currency}</td>
-              <td className="px-6 py-4 text-right font-mono">
+              <td className="px-6 py-4 text-left font-mono">
                 {r.mid.toFixed(4)} PLN
               </td>
               <td className="px-6 py-4 text-gray-600">
