@@ -1,5 +1,5 @@
+using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Storage.Json;
 
 namespace NbpExchangeRates.Infrastructure.Entities;
 
@@ -9,6 +9,8 @@ public class CurrencyRate
     public int Id { get; set; }
     public string Currency { get; set; } = null!;
     public string Code { get; set; } = null!;
+    
+    [Column(TypeName = "decimal(18,8)")]
     public decimal Mid { get; set; }
     
     public DateTime EffectiveDate { get; set; }

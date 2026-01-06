@@ -71,6 +71,11 @@ public class RatesController : ControllerBase
         {
             query = query.Where(r => r.EffectiveDate == date.Value);
         }
+        else
+        {
+            var maxDate = await _db.CurrencyRates.MaxAsync(r => r.EffectiveDate);
+            query = query.Where(r => r.EffectiveDate == maxDate);
+        }
         
         var result = await query
             .OrderBy(r => r.Code)
