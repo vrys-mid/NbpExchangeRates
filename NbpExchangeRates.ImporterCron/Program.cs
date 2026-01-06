@@ -4,8 +4,18 @@ using Microsoft.EntityFrameworkCore;
 using Nbp.Rates.Importer.Jobs;
 using Nbp.Rates.Importer.Services;
 using NbpExchangeRates.Infrastructure.Data;
+using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
+
+Log.Logger = new LoggerConfiguration()
+    .Enrich.FromLogContext()
+    .WriteTo.Console()
+    .WriteTo.File("logs/importer-.log", rollingInterval: RollingInterval.Day)
+    .MinimumLevel.Information() 
+    .CreateLogger();
+
+builder.Host.UseSerilog();
 
 builder.Services.AddDbContext<AppDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
@@ -45,4 +55,16 @@ using (var scope = app.Services.CreateScope())
     );
 }
 
-app.Run();
+try
+{
+    Log.Information("Starting ImporterCron...");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
