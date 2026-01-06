@@ -76,7 +76,7 @@ The app should be accessible under port 5173 (http://localhost:5173/)
 
 ## Images
 
-![MainTable][https://github.com/vrys-mid/NbpExchangeRates/blob/main/Images/mainTable.png?raw=true]
+![MainTable][Images/mainTable.png]
 
 *Figure 1: Main Table 
 
