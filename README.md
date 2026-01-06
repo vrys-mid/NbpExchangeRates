@@ -52,6 +52,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=xxx" \
 
 next, populate connectionstring to point to new  sql server instance in projects NbpExchangeRates.ImporterCron appsettings.json, and NbpExchangeRates.WebApi appsetting.json.  
  Move those secrets to new file appsettings.Development.json  
+ 
  In NbpExchangeRates.Infrastructure project please run (and replace xxx with actual password of your sql server instance)
 ```bash
 dotnet user-secrets set "ConnectionStrings:DefaultConnection" "Server=localhost,1433;Database=NbpRates;User Id=sa;Password=xxx;TrustServerCertificate=True" --project NbpExchangeRates.Infrastructure
