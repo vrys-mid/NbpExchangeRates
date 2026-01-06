@@ -24,9 +24,10 @@ input {
 }
 
 select {
-  margin-top:15px;
+  margin-top:10px;
   margin-bottom:15px;
   margin-right:5px;
+  margin-left:10px;
 }
 
 .currency-converter-container select {
