@@ -77,12 +77,21 @@ The app should be accessible under port 5173 (http://localhost:5173/)
 ## Images
 
 ![MainTable][./images/mainTable.png]
+
 *Figure 1: Main Table 
+
 ![chart][./images/chart.png]
+
 *Figure 2: Comparison chart
+
 ![chartDetail][./images/chart.png]
+
 *Figure 3: Chart details
+
 ![currencyConverter][./images/currencyConverter.png]
+
 *Figure 4: Currency converter
+
 ![favorites][./images/favorites.png]
+
 *Figure 5: Favorites filter on main table
