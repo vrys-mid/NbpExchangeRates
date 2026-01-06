@@ -32,7 +32,7 @@ operation as well as manually triggering it. If the job fails there are multiple
 - **Description:** REST API which provides data for the web app
 4. NbpExchangeRates.UI
 - **Technologies:** React, Typescript, Tailwind, Vite
-- **Description:** REST API which provides data for the web app
+- **Description:** A Web app which enables the user to interact with the NBP Table B data
 5. NbpExchangeRates.ImporterCron.Tests & NbpExchangeRates.WebApi.Tests
 - **Technologies:** XUnit, Moq
 - **Description:** Unit tests 
