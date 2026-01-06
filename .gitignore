@@ -111,11 +111,11 @@ ScaffoldingReadMe.txt
 *.ldf
 *.ndf
 
-# ============================================
-# IMPORTANT: Ignore appsettings JSON files
-# ============================================
-# Ignore all appsettings files except the template
-appsettings.json
+
+# Include the main appsettings.json
+!appsettings.json
+
+# Ignore environment-specific settings
 appsettings.*.json
 !appsettings.Development.json.template
 
